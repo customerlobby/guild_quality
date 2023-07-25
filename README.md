@@ -29,7 +29,7 @@ client = GuildQuality.client({ api_key: "AAAA..AAA" })
 
 customer_data = [
   {
-    "email1": "rober@example.com",
+    "email1": "robert@example.com",
     "name": "Robert White",
     "phone1": "987-654-3210",
     "firstName": "Robert",
