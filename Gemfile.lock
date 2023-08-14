@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    guild_quality (0.1.0)
+    guild_quality (0.1.2)
       faraday (>= 0.9.2)
       faraday_middleware (>= 1.1)
       json (>= 1.8.6)

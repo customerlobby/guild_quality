@@ -18,6 +18,9 @@ module GuildQuality
       @connection = nil
     end
 
+    # Create customer.
+    # GuildQuality will create or update customer based on email.
+    # Doc: https://documenter.getpostman.com/view/2124402/TVRecqCj#80c0996d-50b6-4365-b4d6-c8aeb2ccb069
     def create_customer(data)
       request(:post, request_prefix_prefix("customer"), { body: data })
     end
