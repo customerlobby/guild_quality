@@ -14,6 +14,8 @@ module GuildQuality
   # 422
   class InvalidRequestDataError < Error; end
 
+  # 429 Too Many Requests
+  class RateLimitError < Error; end
 
   # Create API client
   #

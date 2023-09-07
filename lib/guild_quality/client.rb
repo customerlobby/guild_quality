@@ -1,5 +1,6 @@
 require "faraday"
 require "faraday_middleware"
+require "json"
 require "guild_quality/faraday_middleware/auth"
 
 module GuildQuality
@@ -35,7 +36,6 @@ module GuildQuality
       @connection ||= Faraday.new({ url: self.endpoint }) do |conn|
         conn.headers["Content-Type"] = "application/json"
         conn.use GuildQuality::FaradayMiddleware::Auth, api_key
-        conn.use Faraday::Response::ParseJson
         conn.response :logger, logger if self.logger
         conn.adapter(self.faraday_adapter)
       end
@@ -57,13 +57,15 @@ module GuildQuality
         request.options.open_timeout = 300 # connection timeout
       end
 
-      return http_response.body if http_response.status == 200
+      return JSON.parse(http_response.body) if http_response.status == 200
 
       raise AuthorizationError, http_response.body if http_response.status == 401
 
       raise BadRequestError, http_response.body if http_response.status == 400
 
       raise InvalidRequestDataError, http_response.body if http_response.status == 422
+
+      raise RateLimitError, http_response.body if http_response.status == 429
 
       http_response.body
     end
