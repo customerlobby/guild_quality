@@ -57,7 +57,9 @@ module GuildQuality
         request.options.open_timeout = 300 # connection timeout
       end
 
-      return JSON.parse(http_response.body) if http_response.status == 200
+      if http_response.status == 200
+        return JSON.parse(http_response.body) rescue {}
+      end
 
       raise AuthorizationError, http_response.body if http_response.status == 401
 
