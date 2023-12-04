@@ -69,7 +69,7 @@ module GuildQuality
 
       raise RateLimitError, http_response.body if http_response.status == 429
 
-      http_response.body
+      raise Error, http_response.body
     end
   end
 end
