@@ -58,7 +58,11 @@ module GuildQuality
       end
 
       if http_response.status == 200
-        return JSON.parse(http_response.body) rescue {}
+        begin
+          return JSON.parse(http_response.body)
+        rescue => e
+          return {}
+        end
       end
 
       raise AuthorizationError, http_response.body if http_response.status == 401
